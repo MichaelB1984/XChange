@@ -10,6 +10,8 @@ import org.knowm.xchange.huobi.dto.marketdata.HuobiTicker;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiAssetPairsResult;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiDepthResult;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiTickerResult;
+import org.knowm.xchange.huobi.dto.trade.HuobiTrade;
+import org.knowm.xchange.huobi.dto.trade.results.HuobiTradeResult;
 
 public class HuobiMarketDataServiceRaw extends HuobiBaseService {
 
@@ -33,4 +35,10 @@ public class HuobiMarketDataServiceRaw extends HuobiBaseService {
     HuobiDepthResult depthResult = huobi.getDepth(huobiCurrencyPair, depthType);
     return checkResult(depthResult);
   }
+  
+  public HuobiTrade[] getTrades(CurrencyPair currencyPair, int size) throws IOException {
+	    String huobiCurrencyPair = HuobiUtils.createHuobiCurrencyPair(currencyPair);
+	    HuobiTradeResult tradeResult = huobi.getTrades(huobiCurrencyPair, size);
+	    return checkResult(tradeResult);
+	  }
 }

@@ -2,12 +2,14 @@ package org.knowm.xchange.huobi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
 import java.util.Arrays;
 import org.junit.Test;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
+import org.knowm.xchange.huobi.service.HuobiMarketDataServiceRaw;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
 public class HuobiPublicApiIntegration {
@@ -25,5 +27,13 @@ public class HuobiPublicApiIntegration {
   public void getExchangeSymbolsTest() {
     Exchange exchange = ExchangeFactory.INSTANCE.createExchange(HuobiExchange.class.getName());
     System.out.println(Arrays.toString(exchange.getExchangeSymbols().toArray()));
+  }
+  
+  @Test
+  public void getTradeTest() throws IOException {
+	  Exchange exchange = ExchangeFactory.INSTANCE.createExchange(HuobiExchange.class.getName());
+	  HuobiMarketDataServiceRaw marketDataService = (HuobiMarketDataServiceRaw) exchange.getMarketDataService();
+	  System.out.println(Arrays.toString(marketDataService.getTrades(new CurrencyPair("BTC", "USDT"), 10)));
+	  
   }
 }

@@ -24,6 +24,8 @@ import org.knowm.xchange.huobi.dto.trade.results.HuobiCancelOrderResult;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiOrderInfoResult;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiOrderResult;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiOrdersResult;
+import org.knowm.xchange.huobi.dto.trade.results.HuobiTradeResult;
+
 import si.mazi.rescu.ParamsDigest;
 
 @Path("/")
@@ -122,6 +124,11 @@ public interface Huobi {
       @QueryParam("SignatureVersion") int signatureVersion,
       @QueryParam("Timestamp") String nonce,
       @QueryParam("Signature") ParamsDigest signature)
+      throws IOException;
+  
+  @GET
+  @Path("market/history/trade")
+  HuobiTradeResult getTrades(@QueryParam("symbol") String symbol, @QueryParam("size") int size)
       throws IOException;
 
   @POST
